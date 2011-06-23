@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 class AniGUI extends JFrame {
 	JPanel bottomBar, animonInfo, menuBar;
-	JLabel animonName, animonHP, animonMana;
+	JLabel animonName, animonHp, animonMana;
 	GameState gameState;
 
 
@@ -48,6 +48,16 @@ class AniGUI extends JFrame {
 		drawBottomBar();
 		drawAnimonInfo();
 		drawMenuBar();
+	}
+	public void drawBottomBar(){
+
+	}
+	public void drawAnimonInfo(){
+
+
+	}
+	public void drawMenuBar(){
+
 	}
 
 }
