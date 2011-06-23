@@ -1,15 +1,17 @@
-import java.util.List;
+import java.util.HashSet;
 
 class AnimonType {
 	private int hp,mana;
-	private List<Attack> attacks;
+	private Attack defaultAttack;
+	private HashSet<Attack> canLearn;
 	private String name;
 
-	AnimonType(String name, int hp, int mana, List<Attack> attacks){
+	AnimonType(String name, int hp, int mana, Attack defaultAttack, HashSet<Attack> canLearn){
 		this.name = name;
 		this.hp = hp;
 		this.mana = mana;
-		this.attacks = attacks;
+		this.defaultAttack = defaultAttack;
+		this.canLearn = canLearn;
 	}
 	public String getName(){
 		return name;
@@ -22,10 +24,12 @@ class AnimonType {
 		return mana;
 	}
 
-	public Attack getAttack(int attackNumber){
-		return attacks.get(attackNumber);
+	public boolean canLearn(Attack attack){
+		return canLearn.contains(attack);
 	}
-	public int getNumberOfAttacks(){
-		return attacks.size();
+
+	public Attack getDefaultAttack(){
+		return defaultAttack;
 	}
+
 }

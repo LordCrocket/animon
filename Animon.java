@@ -1,11 +1,15 @@
+import java.util.ArrayList;
 class Animon {
 	private int hp,mana;	
 	private AnimonType type;
+	private ArrayList<Attack> attacks;
 	
 	public Animon(AnimonType type){
 		this.type = type;
-		hp = type.getHp();
+		hp = type.getHp();		
 		mana = type.getMana();
+		attacks = new ArrayList<Attack>();
+		attacks.add(type.getDefaultAttack());
 	} 
 
 	public AnimonType getType(){
@@ -44,11 +48,31 @@ class Animon {
 		setHp(hp + hpChange);
 	}
 
+	public Attack getAttack(int attackNumber){
+		return attacks.get(attackNumber);
+	}
+	public ArrayList<String> getAttackNames(){
+		ArrayList<String> attackNames = new ArrayList<String>();	
+		for(Attack attack: attacks)
+			attackNames.add(attack.getName());
+		return attackNames;
+	}
+	public int getNumberOfAttacks(){
+		return attacks.size();
+	}
+
+	public boolean learnAttack(Attack attack){
+		if((!type.canLearn(attack)) && (!attacks.contains(attack)))
+			return false;
+		attacks.add(attack);
+		return true;
+	}
+
 	public String toString(){
 		String tmp ="";
 		tmp += type.getName() + "\n";
 		tmp += "Hp :" +hp + "\n";
-		tmp += "Mana :"+mana;
+		tmp += "Mana :"+mana + "\n";
 		return tmp;
 	}
 

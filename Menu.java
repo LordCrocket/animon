@@ -1,25 +1,24 @@
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.ArrayList;
 class Menu {
 	private List<String> options;
 	private int choice;
+	public static final int ATTACK =0,CHANGE_ANIMAL=1,FLEE=2,ITEM =3;
 
 	public Menu(){
 		options = new ArrayList<String>();	
-		options.add("1. Attack");
-		options.add("2. Change Animal");
-		options.add("3. Flee");
-		options.add("4. Item");
+		options.add("Attack");
+		options.add("Change Animal");
+		options.add("Flee");
+		options.add("Item");
 	}
 
 	public Menu(List<String> options){
 		this.options = options;
 	}
 	
-	public void choose(){
-		Scanner sc = new Scanner(System.in);
-		choice = Integer.parseInt(sc.nextLine())-1;
+	public void choose(int choice){
+		this.choice = choice;
 	}
 
 	public int getChoiceNumber(){
@@ -30,11 +29,15 @@ class Menu {
 		return options.get(choice);
 	}
 
+	public List<String> getOptions(){
+		return options;
+	}
+
 
 	public String toString(){
 		String tmp="";
-		for(String option: options)
-			tmp += option +"\n";
+		for(int optionNumber = 0; optionNumber<options.size();optionNumber++)
+			tmp += optionNumber+1 + ". "+options.get(optionNumber) +"\n";
 		return tmp;
 	}
 }
