@@ -1,13 +1,16 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 class Main {
-	
+		
 	public static void main(String []args){
 		
-		Scanner sc = new Scanner(System.in);
+		//Scanner sc = new Scanner(System.in);
 		AniDex aniDex = AniDex.getAniDex();
-		AniGUI gui = new AniGUI(GameState.getInstance());
-
+		Window window = new Window();
+		
+		GameState gameState = GameState.getInstance();
+		gameState.addPlayer("Rasmus");
+		gameState.addPlayer("Marcus");
 
 		AnimonType wolf = aniDex.getAnimon("wolf");
 		AnimonType deer = aniDex.getAnimon("deer");
@@ -16,18 +19,18 @@ class Main {
 
 		Animon a1 = new Animon(wolf);
 		Animon a2 = new Animon(deer);
-		Animon a3 = new Animon(wolf);
+	
+		gameState.getCurrentPlayer().addAnimon(a1);
+		gameState.changePlayer();
 
+		gameState.getCurrentPlayer().addAnimon(a2);
+		gameState.changePlayer();
 		
 
-		Player p1 = new Player("Rasmus");
-		Player p2 = new Player("Marcus");
 
-		p1.addAnimon(a1);
 		a1.learnAttack(aniDex.getAttack("bite"));
-		p2.addAnimon(a2);
 
-		
+		/*	
 		
 		Menu mainMenu = new Menu();
 		Menu combatMenu;
@@ -60,6 +63,7 @@ class Main {
 			currentPlayer = otherPlayer;
 			otherPlayer = temp;
 		}
+		*/
 	}
 
 }

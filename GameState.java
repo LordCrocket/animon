@@ -24,6 +24,27 @@ class GameState {
 		return players[currentPlayer]; 
 	}
 
+	public void changePlayer(){
+		currentPlayer = (currentPlayer+1)%maxPlayers;
+	}
+	public String getCurrentAnimonName(){
+		return players[currentPlayer].getAnimon(0).getType().getName();
+	}
+
+	public int getCurrentAnimonHp(){
+		return players[currentPlayer].getAnimon(0).getHp();
+	}
+	public int getCurrentAnimonMana(){
+		return players[currentPlayer].getAnimon(0).getMana();
+	}
+	public int getCurrentAnimonMaxHp(){
+		return players[currentPlayer].getAnimon(0).getType().getHp();
+	}
+	public int getCurrentAnimonMaxMana(){
+		return players[currentPlayer].getAnimon(0).getType().getMana();
+	}
+
+
 	
 
 }
