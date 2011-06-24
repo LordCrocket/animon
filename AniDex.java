@@ -27,6 +27,8 @@ class AniDex {
 		attackMap.put("scratch",new Attack("Scratch",10,10));
 		attackMap.put("kick",new Attack("Kick",10,10));
 		attackMap.put("spear", new Attack("Spear",30,20));
+		attackMap.put("charge", new Attack("Charge",20,20));
+		attackMap.put("rampage", new Attack("Rampage",50,20));
 
 	}
 	private void initAnimon(){
@@ -41,6 +43,12 @@ class AniDex {
 		attackNames.add("spear");
 		AnimonType deer = new AnimonType("Deer",150,50,attackMap.get("kick"),canLearn(attackNames));
 		animonMap.put("deer",deer);
+
+		attackNames = new HashSet<String>();	
+		attackNames.add("rampage");
+		AnimonType elephant = new AnimonType("Elephant",200,50,attackMap.get("charge"),canLearn(attackNames));
+		animonMap.put("elephant",elephant);
+
 	}	
 
 	private HashSet<Attack> canLearn(HashSet<String> attackNames){

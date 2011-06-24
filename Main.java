@@ -11,19 +11,25 @@ class Main {
 		GameState gameState = GameState.getInstance();
 		gameState.addPlayer("Rasmus");
 		gameState.addPlayer("Marcus");
+		gameState.addPlayer("Linda");
 
 		AnimonType wolf = aniDex.getAnimon("wolf");
 		AnimonType deer = aniDex.getAnimon("deer");
+		AnimonType elephant = aniDex.getAnimon("elephant");
 
 
 
 		Animon a1 = new Animon(wolf);
 		Animon a2 = new Animon(deer);
+		Animon a3 = new Animon(elephant);
 	
 		gameState.getCurrentPlayer().addAnimon(a1);
 		gameState.changePlayer();
 
 		gameState.getCurrentPlayer().addAnimon(a2);
+		gameState.changePlayer();
+
+		gameState.getCurrentPlayer().addAnimon(a3);
 		gameState.changePlayer();
 		
 

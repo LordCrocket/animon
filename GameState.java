@@ -1,7 +1,7 @@
 class GameState {
 	private static final GameState gameState = new GameState();	
 	private Player[] players;
-	private int currentPlayer, maxPlayers = 2, numberOfPlayers = 0;
+	private int currentPlayer, maxPlayers = 3, numberOfPlayers = 0;
 	private Menu currentMenu;
 
 	public static GameState getInstance(){
@@ -12,7 +12,6 @@ class GameState {
 		AniDex aniDex = AniDex.getAniDex();
 		players = new Player[maxPlayers];
 		currentMenu = new Menu();
-
 	}
 
 	public void addPlayer(String name){
@@ -20,31 +19,40 @@ class GameState {
 			players[numberOfPlayers++] = new Player(name);
 	}
 
+	public Menu getCurrentMenu(){
+		return currentMenu;
+	}
+	public void setCurrentMenu(Menu newMenu){
+		currentMenu = newMenu;
+	}
+
+
+	public int getCurrentChoice(){
+		return currentMenu.getChoiceNumber();
+	}
+
+	public void setCurrentChoice(int choice){
+		currentMenu.choose(choice);	
+	}
+
 	public Player getCurrentPlayer(){
 		return players[currentPlayer]; 
 	}
+	public Player getNextPlayer(){
+		return players[(currentPlayer+1)%numberOfPlayers]; 
+	}
 
 	public void changePlayer(){
-		currentPlayer = (currentPlayer+1)%maxPlayers;
+		currentPlayer = (currentPlayer+1)%numberOfPlayers;
 	}
-	public String getCurrentAnimonName(){
-		return players[currentPlayer].getAnimon(0).getType().getName();
+	public Animon getCurrentAnimon(){
+		return players[currentPlayer].getCurrentAnimon();
 	}
-
-	public int getCurrentAnimonHp(){
-		return players[currentPlayer].getAnimon(0).getHp();
-	}
-	public int getCurrentAnimonMana(){
-		return players[currentPlayer].getAnimon(0).getMana();
-	}
-	public int getCurrentAnimonMaxHp(){
-		return players[currentPlayer].getAnimon(0).getType().getHp();
-	}
-	public int getCurrentAnimonMaxMana(){
-		return players[currentPlayer].getAnimon(0).getType().getMana();
+	public Animon getDefendingAnimon(){
+		return getNextPlayer().getCurrentAnimon();
 	}
 
-
+	
 	
 
 }

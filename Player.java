@@ -2,6 +2,7 @@ import java.util.ArrayList;
 class Player {
 	private String name;
 	private ArrayList<Animon> animons;
+	private Animon currentAnimon;
 
 
 	Player(String name){
@@ -15,12 +16,18 @@ class Player {
 
 
 	public void addAnimon(Animon animon){
-		if(!animons.contains(animon))
+		if(!animons.contains(animon)){
 			animons.add(animon);
+			if(currentAnimon==null)
+				currentAnimon = animon;
+		}
 	}
 
 	public Animon getAnimon(int animonNumber){
 		return animons.get(animonNumber);
+	}
+	public Animon getCurrentAnimon(){
+		return currentAnimon;
 	}
 
 	public String toString(){
