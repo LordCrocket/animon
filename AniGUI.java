@@ -2,8 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 class AniGUI extends JPanel {
 	JPanel bottomBar;
-	MenuBarGUI menuBar;
-	AnimonInfoGUI animonInfo,defendingInfo;
+	GraphicalComponent animonInfo,defendingInfo,menuBar;
 	GameState gameState = GameState.getInstance();
 
 
@@ -20,8 +19,7 @@ class AniGUI extends JPanel {
 		animonInfo = new AnimonInfoGUI(0,350,true);
 		defendingInfo = new AnimonInfoGUI(450,50,false);
 
-		menuBar = new MenuBarGUI();
-			
+		menuBar = new MenuBarGUI(400,350);
 		
 		add(defendingInfo);
 		add(animonInfo);	
@@ -37,9 +35,5 @@ class AniGUI extends JPanel {
 			gameState.setInfoChanged(false);
 		}
 	}
-	public void drawBottomBar(){
-		//bottomBar.setBackground(Color.WHITE);
-		//bottomBar.setBounds(0,350,800,150);
-	}
-	
+		
 }

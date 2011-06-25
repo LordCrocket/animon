@@ -9,7 +9,7 @@ class Controller {
 
 	public void buttonPushed(int key){
 			int currentChoice = gameState.getCurrentChoice();
-			int coloumns = MenuBarGUI.COLOUMNS;
+			int coloumns = gameState.getCurrentMenu().getColoumns();
 			MenuType menuType = gameState.getCurrentMenu().getType();
 			switch(key){
 				case KeyEvent.VK_UP:gameState.setCurrentChoice(currentChoice-coloumns);break;

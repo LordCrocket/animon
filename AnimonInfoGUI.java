@@ -1,15 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
-class AnimonInfoGUI extends JPanel {	
+class AnimonInfoGUI extends GraphicalComponent {	
 	private GameState gameState;
 	private JLabel animonName, animonHp, animonMana;
-	private int x,y;
 	private boolean isCurrent;
 	
-	AnimonInfoGUI(int xx, int yy, boolean isCurrent){
+	AnimonInfoGUI(int x, int y, boolean isCurrent){
+		super(x,y);
 		setLayout(null);
-		x = xx;
-		y = yy;
 		this.isCurrent = isCurrent;
 		gameState = GameState.getInstance();
 		animonName = new JLabel("Default");
@@ -36,9 +34,6 @@ class AnimonInfoGUI extends JPanel {
 		animonName.setBounds(0,0,100,25);
 		animonHp.setBounds(200,20,100,25);
 		animonMana.setBounds(200,45,100,25);
-
-
-
 	}
 
 	

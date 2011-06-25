@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 class Menu {
 	private ArrayList<String> options;
-	private int choice;
+	private int choice,coloumns = 2;
 	private MenuType type;
 	public static final int ATTACK =0,CHANGE_ANIMON=1,FLEE=2,ITEM =3;
 
@@ -15,14 +15,24 @@ class Menu {
 		choice = 0;
 	}
 
+	public Menu(ArrayList<String> options,MenuType type, int coloumns){
+		this(options,type);
+		this.coloumns = coloumns;
+	}
+
 	public Menu(ArrayList<String> options,MenuType type){
 		this.options = options;
 		this.type = type;
 		choice = 0;
 	}
 
+
 	public MenuType getType(){
 		return type;
+	}
+
+	public int getColoumns(){
+		return coloumns;
 	}
 	
 	public void choose(int choice){

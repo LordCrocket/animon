@@ -1,21 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-class MenuBarGUI extends JPanel {
+class MenuBarGUI extends GraphicalComponent {
 	private Menu menu;
 	private GameState gameState;
 	private ArrayList<JLabel> options; 
 	private JLabel selection;
-	public static final int COLOUMNS = 2;
 	
-	MenuBarGUI(){
+	MenuBarGUI(int x,int y){
+		super(x,y);
 		gameState = GameState.getInstance();
 		setLayout(null);
 		selection = new JLabel("->");
 		selection.setBackground(Color.BLACK);
 	}
 	public void draw(){
-		setBounds(400,350,400,150);
+		setBounds(x,y,400,150);
 		updateMenu();	
 	}
 
@@ -33,7 +33,7 @@ class MenuBarGUI extends JPanel {
 				JLabel menuLabel = new JLabel(option);
 				options.add(menuLabel);
 				add(menuLabel);
-				int width = 400/COLOUMNS;
+				int width = 400/menu.getColoumns();
 				menuLabel.setBounds(20+x,1+y,width,50);
 				x = (x+width)%400; 
 				if(x == 0){
@@ -43,8 +43,9 @@ class MenuBarGUI extends JPanel {
 		}
 		if(gameState.getCurrentMenu().getNumberOfOptions()>0){
 			int choice = gameState.getCurrentChoice();	
-			int x = choice%COLOUMNS;	
-			int y = choice/COLOUMNS;
+			int coloumns = menu.getColoumns();
+			int x = choice%coloumns;	
+			int y = choice/coloumns;
 			selection.setBounds(200*x,50*y+15,20,20);
 		}
 
