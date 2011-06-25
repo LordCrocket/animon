@@ -2,27 +2,27 @@ import java.util.ArrayList;
 class Menu {
 	private ArrayList<String> options;
 	private int choice;
-	private String name;
-	public static final int ATTACK =0,CHANGE_ANIMAL=1,FLEE=2,ITEM =3;
+	private MenuType type;
+	public static final int ATTACK =0,CHANGE_ANIMON=1,FLEE=2,ITEM =3;
 
 	public Menu(){
 		options = new ArrayList<String>();	
 		options.add("Attack");
-		options.add("Change Animal");
+		options.add("Change Animon");
 		options.add("Flee");
 		options.add("Item");
-		name = "main";
+		type = MenuType.main;
 		choice = 0;
 	}
 
-	public Menu(ArrayList<String> options,String name){
+	public Menu(ArrayList<String> options,MenuType type){
 		this.options = options;
-		this.name = name;
+		this.type = type;
 		choice = 0;
 	}
 
-	public String getName(){
-		return name;
+	public MenuType getType(){
+		return type;
 	}
 	
 	public void choose(int choice){

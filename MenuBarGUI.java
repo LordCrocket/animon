@@ -41,10 +41,12 @@ class MenuBarGUI extends JPanel {
 				}
 			}
 		}
-		int choice = gameState.getCurrentChoice();	
-		int x = choice%COLOUMNS;	
-		int y = choice/COLOUMNS;
-		selection.setBounds(200*x,50*y+15,20,20);
+		if(gameState.getCurrentMenu().getNumberOfOptions()>0){
+			int choice = gameState.getCurrentChoice();	
+			int x = choice%COLOUMNS;	
+			int y = choice/COLOUMNS;
+			selection.setBounds(200*x,50*y+15,20,20);
+		}
 
 	}
 

@@ -29,6 +29,16 @@ class Player {
 	public Animon getCurrentAnimon(){
 		return currentAnimon;
 	}
+	public void setCurrentAnimon(int animon){
+		if(animon>-1 && animon<animons.size())
+			currentAnimon = animons.get(animon);	
+	}
+	public ArrayList<String> listAnimons(){
+		ArrayList<String> animonNames = new ArrayList<String>();
+		for(Animon animon: animons)
+			animonNames.add(animon.getType().getName());
+		return animonNames;
+	}
 
 	public String toString(){
 		String tmp ="";

@@ -3,6 +3,7 @@ class GameState {
 	private Player[] players;
 	private int currentPlayer, maxPlayers = 3, numberOfPlayers = 0;
 	private Menu currentMenu;
+	private boolean infoChanged;
 
 	public static GameState getInstance(){
 		return gameState;
@@ -12,7 +13,17 @@ class GameState {
 		AniDex aniDex = AniDex.getAniDex();
 		players = new Player[maxPlayers];
 		currentMenu = new Menu();
+		infoChanged = true;
 	}
+
+	public boolean infoChanged(){
+		return infoChanged;
+	}
+
+	public void setInfoChanged(boolean newState){
+		infoChanged = newState;
+	}
+
 
 	public void addPlayer(String name){
 		if(numberOfPlayers<maxPlayers)
@@ -25,7 +36,6 @@ class GameState {
 	public void setCurrentMenu(Menu newMenu){
 		currentMenu = newMenu;
 	}
-
 
 	public int getCurrentChoice(){
 		return currentMenu.getChoiceNumber();
@@ -51,8 +61,5 @@ class GameState {
 	public Animon getDefendingAnimon(){
 		return getNextPlayer().getCurrentAnimon();
 	}
-
-	
-	
 
 }

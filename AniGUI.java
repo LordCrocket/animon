@@ -31,8 +31,11 @@ class AniGUI extends JPanel {
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
 		menuBar.draw();
-		animonInfo.draw();
-		defendingInfo.draw();
+		if(gameState.infoChanged()){
+			animonInfo.draw();
+			defendingInfo.draw();
+			gameState.setInfoChanged(false);
+		}
 	}
 	public void drawBottomBar(){
 		//bottomBar.setBackground(Color.WHITE);
