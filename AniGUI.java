@@ -62,7 +62,6 @@ class AniGUI extends JPanel {
 					latestEvent.setText(gameState.getLatestEvent());
 					latestEvent.setBounds(200,300,500,50);	
 					if(gameState.infoChanged()){
-						System.out.println(gameState.gameWon());
 							animonInfo.draw();
 						if(!gameState.gameWon())
 							defendingInfo.draw();
