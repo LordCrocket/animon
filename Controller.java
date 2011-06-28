@@ -106,13 +106,13 @@ class Controller {
 			if(result.getOutCome() == Result.OK){
 				gameState.setLatestEvent(buildAttackMessage(currentPlayerName,result));
 				if(gameState.getDefendingAnimon().getHp()==0){
-					gameState.setLatestEvent(gameState.getLatestEvent()+" It died");				gameState.removeDefendingAnimon();
+					gameState.setLatestEvent(gameState.getLatestEvent()+", it died");				gameState.removeDefendingAnimon();
 				}
 				boolean nothingDone = false;
 				changeTurn(nothingDone);
 			}
 			else if(result.getOutCome() == Result.NOT_ENOUGH_MANA){
-				gameState.setLatestEvent(currentPlayerName+ "'s " + current.getType().getName() + " don't have enough mana.");	
+				gameState.setLatestEvent(currentPlayerName+ "'s " + current.getType().getName() + " doesn't have enough mana.");	
 				
 			}
 
@@ -128,7 +128,6 @@ class Controller {
 			while(gameState.getCurrentAnimon()==null){
 					gameState.setLatestEvent(gameState.getCurrentPlayer().getName()+ " lost!");
 					gameState.removeCurrentPlayer();
-					gameState.changePlayer();
 
 			}
 				if(gameState.gameWon())
