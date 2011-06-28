@@ -5,7 +5,7 @@ class Main {
 		
 		AniDex aniDex = AniDex.getAniDex();
 		Window window = new Window();
-		
+		/*		
 		GameState gameState = GameState.getInstance();
 		gameState.addPlayer("Rasmus");
 		gameState.addPlayer("Marcus");
@@ -29,11 +29,11 @@ class Main {
 
 		//gameState.getCurrentPlayer().addAnimon(a3);
 		//gameState.changePlayer();
-		
 
 
 		a1.learnAttack(aniDex.getAttack("bite"));
 
+		*/
 		}
 
 }

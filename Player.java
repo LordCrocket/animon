@@ -33,6 +33,9 @@ class Player {
 		if(animon>-1 && animon<animons.size())
 			currentAnimon = animons.get(animon);	
 	}
+	public int getNumberOfAnimons(){
+		return animons.size();
+	}
 	public ArrayList<String> listAnimons(){
 		ArrayList<String> animonNames = new ArrayList<String>();
 		for(Animon animon: animons)

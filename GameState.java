@@ -1,20 +1,25 @@
 import java.util.LinkedList;
+import java.util.ArrayList;
 class GameState {
 	private static final GameState gameState = new GameState();	
 	private LinkedList<Player> players;
-	private int maxPlayers = 3, numberOfPlayers = 0;
+	private int maxPlayers = 3, numberOfPlayers = 0, startingNumberOfAnimons =2;
 	private Menu currentMenu;
 	private boolean infoChanged;
 	private Player currentWinner;
+	private AniDex aniDex;
+	private String latestEvent;
 
 	public static GameState getInstance(){
 		return gameState;
 	}
 
 	GameState(){
-		AniDex aniDex = AniDex.getAniDex();
+		aniDex = AniDex.getAniDex();
 		players = new LinkedList<Player>();
-		currentMenu = new Menu();
+				
+
+		currentMenu = new Menu(MenuType.main);
 		infoChanged = true;
 	}
 
@@ -39,7 +44,13 @@ class GameState {
 			currentWinner = players.peek();
 	}
 
-
+	public int getNumberOfPlayers(){
+		return numberOfPlayers;
+	}
+	public int getStartingNumberOfAnimons(){
+		return startingNumberOfAnimons;
+	}
+	
 	public Menu getCurrentMenu(){
 		return currentMenu;
 	}
@@ -70,10 +81,23 @@ class GameState {
 		players.addLast(players.pop());
 	}
 	public Animon getCurrentAnimon(){
-		return getCurrentPlayer().getCurrentAnimon();
+		Player currentPlayer = getCurrentPlayer();
+		if(currentPlayer != null)
+			return currentPlayer.getCurrentAnimon();
+		else return null;
 	}
 	public Animon getDefendingAnimon(){
 		return getNextPlayer().getCurrentAnimon();
+	}
+	public ArrayList<String> getAllAnimonTypeNames(){
+		return aniDex.getAnimonNames();
+	}
+
+	public String getLatestEvent(){
+		return latestEvent;
+	}
+	public void setLatestEvent(String latestEvent){
+		this.latestEvent = latestEvent;
 	}
 
 }

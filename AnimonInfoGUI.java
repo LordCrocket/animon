@@ -20,11 +20,12 @@ class AnimonInfoGUI extends GraphicalComponent {
 	}
 	public void draw(){
 		Animon current;
+		
 		if(isCurrent)
 			current = gameState.getCurrentAnimon();
 		else
 			current = gameState.getDefendingAnimon();
-
+		
 		animonName.setText(current.getType().getName()); 
 		animonHp.setText("Hp: "+current.getHp()+"/"+
 							current.getType().getHp());

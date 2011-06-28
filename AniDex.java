@@ -57,4 +57,8 @@ class AniDex {
 			canLearn.add(attackMap.get(attackName));
 		return canLearn;
 	} 
+
+	public ArrayList<String> getAnimonNames(){
+		return new ArrayList<String>(animonMap.keySet());	
+	}
 }

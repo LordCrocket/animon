@@ -14,12 +14,13 @@ class Controller {
 			switch(key){
 				case KeyEvent.VK_UP:gameState.setCurrentChoice(currentChoice-coloumns);break;
 				case KeyEvent.VK_DOWN:gameState.setCurrentChoice(currentChoice+coloumns);break;
-				case KeyEvent.VK_LEFT:gameState.setCurrentChoice(currentChoice-1);break;
-				case KeyEvent.VK_RIGHT:gameState.setCurrentChoice(currentChoice+1);break;
+				case KeyEvent.VK_LEFT:if(coloumns>1)gameState.setCurrentChoice(currentChoice-1);break;
+				case KeyEvent.VK_RIGHT:if(coloumns>1)gameState.setCurrentChoice(currentChoice+1);break;
 				case KeyEvent.VK_ENTER:enterClick(currentChoice, menuType);break;
 				case KeyEvent.VK_ESCAPE:
-					if(!(menuType == MenuType.main)) 
-						gameState.setCurrentMenu(new Menu());break;
+					if(!(menuType == MenuType.menuBar || menuType ==MenuType.main )) 
+						gameState.setCurrentMenu(new Menu(MenuType.menuBar));break;
+				case KeyEvent.VK_SPACE:spaceClicked(menuType);
 			}
 			GUI.repaint();
 			}
@@ -28,12 +29,56 @@ class Controller {
 		Animon current = gameState.getCurrentAnimon();
 
 		switch(menuType){
-			case main:mainMenu(currentChoice, current);break;
+			case main:mainMenu(currentChoice);break;
+			case newGame :newGame();break;
+			case animonChoice :animonChoice();break;
+			case menuBar:menuBar(currentChoice, current);break;
 			case changeAnimon:changeAnimon(currentChoice);break;
 			case attacks:attacksMenu(currentChoice,current);break;
 		}
 	}
-	public void mainMenu(int currentChoice, Animon current){
+
+	public void spaceClicked(MenuType type){
+		if(type == MenuType.menuBar){
+			gameState.changePlayer();
+			gameState.setLatestEvent(gameState.getCurrentPlayer().getName()+"'s turn.");
+		}	
+
+	}
+
+	public void mainMenu(int currentChoice){
+		if(currentChoice == 0){
+			gameState.setCurrentMenu(new Menu(MenuType.newGame)); 
+			gameState.setInfoChanged(true);
+		}
+
+	}
+
+	public void newGame(){
+		if(GUI.namesFilled()){
+			for(String name: GUI.getPlayerNames()){ 
+				gameState.addPlayer(name);
+			}
+			
+			gameState.setCurrentMenu(new Menu(gameState.getAllAnimonTypeNames(),MenuType.animonChoice)); 
+			gameState.setInfoChanged(true);
+
+		}
+	}
+	
+	public void animonChoice(){
+			String animon = gameState.getCurrentMenu().getChoice();
+			gameState.getCurrentPlayer().addAnimon(AnimonFactory.create(animon));
+			gameState.changePlayer();
+
+			if(gameState.getCurrentPlayer().getNumberOfAnimons() == gameState.getStartingNumberOfAnimons()){
+				gameState.setCurrentMenu(new Menu(MenuType.menuBar)); 
+				gameState.setInfoChanged(true);
+				gameState.setLatestEvent("Game started");
+			}
+
+	}
+	public void menuBar(int currentChoice, Animon current){
 		if(currentChoice==Menu.ATTACK){
 			gameState.setCurrentMenu(new Menu(current.getAttackNames(),MenuType.attacks)); 
 			gameState.setInfoChanged(true);
@@ -45,16 +90,31 @@ class Controller {
 	}
 
 	public void changeAnimon(int currentChoice){
-		gameState.getCurrentPlayer().setCurrentAnimon(currentChoice); 
-		gameState.setCurrentMenu(new Menu());
+		Player currentPlayer = gameState.getCurrentPlayer();
+		currentPlayer.setCurrentAnimon(currentChoice); 
+		gameState.setCurrentMenu(new Menu(MenuType.menuBar));
 		gameState.setInfoChanged(true);
+
+		gameState.setLatestEvent(currentPlayer.getName() + " changed Animon to :"+ gameState.getCurrentAnimon().getType().getName()); 
 
 	}
 	public void attacksMenu(int currentChoice, Animon current){
-			Combat.attack(current, gameState.getDefendingAnimon(),currentChoice);
-			gameState.changePlayer();
-			gameState.setCurrentMenu(new Menu());
+			Result result = Combat.attack(current, gameState.getDefendingAnimon(),currentChoice);
+			gameState.setCurrentMenu(new Menu(MenuType.menuBar));
 			gameState.setInfoChanged(true);
+			
+			String currentPlayerName = gameState.getCurrentPlayer().getName();
+			String nextPlayerName = gameState.getNextPlayer().getName();
+			
+			
+			if(result.getOutCome() == Result.OK){
+				gameState.setLatestEvent(currentPlayerName+"'s "+current.getType().getName()+ " dealt "+ result.getDamageDone() + " damage to "+ nextPlayerName+"'s " + gameState.getDefendingAnimon().getType().getName());
+				gameState.changePlayer();
+			}
+			else if(result.getOutCome() == Result.NOT_ENOUGH_MANA){
+				gameState.setLatestEvent(currentPlayerName+ "'s " + current.getType().getName() + " don't have enough mana.");	
+				
+			}
 
 
 	}

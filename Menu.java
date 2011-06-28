@@ -5,14 +5,27 @@ class Menu {
 	private MenuType type;
 	public static final int ATTACK =0,CHANGE_ANIMON=1,FLEE=2,ITEM =3;
 
-	public Menu(){
+	public Menu(MenuType newMenuType){
 		options = new ArrayList<String>();	
-		options.add("Attack");
-		options.add("Change Animon");
-		options.add("Flee");
-		options.add("Item");
-		type = MenuType.main;
 		choice = 0;
+		switch(newMenuType){
+		case menuBar:
+			options.add("Attack");
+			options.add("Change Animon");
+			options.add("Flee");
+			options.add("Item");
+			type = MenuType.menuBar;
+			break;
+		case main:
+			options.add("New Game");
+			options.add("Exit");
+			type = MenuType.main;
+			coloumns = 1;
+			break;
+		case newGame:
+			type = MenuType.newGame;
+			break;
+		}
 	}
 
 	public Menu(ArrayList<String> options,MenuType type, int coloumns){

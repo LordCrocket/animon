@@ -1,1 +1,1 @@
-public enum MenuType {main,changeAnimon,attacks}
+public enum MenuType {main,newGame,menuBar,changeAnimon,attacks,animonChoice}
