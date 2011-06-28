@@ -40,8 +40,8 @@ class Controller {
 
 	public void spaceClicked(MenuType type){
 		if(type == MenuType.menuBar){
-			gameState.changePlayer();
-			gameState.setLatestEvent(gameState.getCurrentPlayer().getName()+"'s turn.");
+			boolean nothingDone = true;
+			changeTurn(nothingDone);
 		}	
 
 	}
@@ -100,24 +100,57 @@ class Controller {
 	}
 	public void attacksMenu(int currentChoice, Animon current){
 			Result result = Combat.attack(current, gameState.getDefendingAnimon(),currentChoice);
-			gameState.setCurrentMenu(new Menu(MenuType.menuBar));
-			gameState.setInfoChanged(true);
-			
+					
 			String currentPlayerName = gameState.getCurrentPlayer().getName();
-			String nextPlayerName = gameState.getNextPlayer().getName();
-			
-			
+				
 			if(result.getOutCome() == Result.OK){
-				gameState.setLatestEvent(currentPlayerName+"'s "+current.getType().getName()+ " dealt "+ result.getDamageDone() + " damage to "+ nextPlayerName+"'s " + gameState.getDefendingAnimon().getType().getName());
-				gameState.changePlayer();
+				gameState.setLatestEvent(buildAttackMessage(currentPlayerName,result));
+				if(gameState.getDefendingAnimon().getHp()==0){
+					gameState.setLatestEvent(gameState.getLatestEvent()+" It died");				gameState.removeDefendingAnimon();
+				}
+				boolean nothingDone = false;
+				changeTurn(nothingDone);
 			}
 			else if(result.getOutCome() == Result.NOT_ENOUGH_MANA){
 				gameState.setLatestEvent(currentPlayerName+ "'s " + current.getType().getName() + " don't have enough mana.");	
 				
 			}
 
+			gameState.setCurrentMenu(new Menu(MenuType.menuBar));
+			gameState.setInfoChanged(true);
+	}
+
+	public void changeTurn(boolean nothingDone){
+
+			gameState.getNextPlayer().updateAnimons();
+			gameState.changePlayer();
+
+			while(gameState.getCurrentAnimon()==null){
+					gameState.setLatestEvent(gameState.getCurrentPlayer().getName()+ " lost!");
+					gameState.removeCurrentPlayer();
+					gameState.changePlayer();
+
+			}
+				if(gameState.gameWon())
+					gameState.setLatestEvent(gameState.getWinner().getName()+" won!");
+			else{
+				if(nothingDone)
+					gameState.setLatestEvent(gameState.getCurrentPlayer().getName()+"'s turn.");
+			}
 
 	}
+	public String buildAttackMessage(String currentPlayerName,Result result){
+		String nextPlayerName = gameState.getNextPlayer().getName();
+
+		String tmp="";
+		tmp+= currentPlayerName+"'s ";
+		tmp+= gameState.getCurrentAnimon().getType().getName()+ " dealt ";
+		tmp+=result.getDamageDone() + " damage to ";
+		tmp+=nextPlayerName+"'s ";
+		tmp+=gameState.getDefendingAnimon().getType().getName(); 
+		return tmp;
+
+	}	
 										
 
 }

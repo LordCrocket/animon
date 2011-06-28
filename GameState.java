@@ -3,7 +3,7 @@ import java.util.ArrayList;
 class GameState {
 	private static final GameState gameState = new GameState();	
 	private LinkedList<Player> players;
-	private int maxPlayers = 3, numberOfPlayers = 0, startingNumberOfAnimons =2;
+	private int maxPlayers = 3, startingNumberOfAnimons =2;
 	private Menu currentMenu;
 	private boolean infoChanged;
 	private Player currentWinner;
@@ -33,8 +33,7 @@ class GameState {
 
 
 	public void addPlayer(String name){
-		if(numberOfPlayers<maxPlayers){
-			++numberOfPlayers;
+		if(getNumberOfPlayers()<maxPlayers){
 			players.addLast(new Player(name));
 		}
 	}
@@ -45,7 +44,7 @@ class GameState {
 	}
 
 	public int getNumberOfPlayers(){
-		return numberOfPlayers;
+		return players.size();
 	}
 	public int getStartingNumberOfAnimons(){
 		return startingNumberOfAnimons;
@@ -70,9 +69,9 @@ class GameState {
 		return players.peek(); 
 	}
 	public Player getNextPlayer(){
-		if(numberOfPlayers==0)
+		if(getNumberOfPlayers()==0)
 			return null;
-		else if(numberOfPlayers > 1)
+		else if(getNumberOfPlayers() > 1)
 			return players.get(1); 
 		return	players.get(0); 
 	}
@@ -89,6 +88,9 @@ class GameState {
 	public Animon getDefendingAnimon(){
 		return getNextPlayer().getCurrentAnimon();
 	}
+	public void removeDefendingAnimon(){
+		getNextPlayer().removeCurrentAnimon();
+	}
 	public ArrayList<String> getAllAnimonTypeNames(){
 		return aniDex.getAnimonNames();
 	}
@@ -98,6 +100,15 @@ class GameState {
 	}
 	public void setLatestEvent(String latestEvent){
 		this.latestEvent = latestEvent;
+	}
+
+	public Player getWinner(){
+		return currentWinner;
+	}
+	public boolean gameWon(){
+		if(currentWinner!=null)
+			return true;
+		return false;
 	}
 
 }

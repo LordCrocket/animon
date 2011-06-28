@@ -33,6 +33,13 @@ class Player {
 		if(animon>-1 && animon<animons.size())
 			currentAnimon = animons.get(animon);	
 	}
+	public void removeCurrentAnimon(){
+		animons.remove(currentAnimon);	
+		if(animons.size()>0)
+			currentAnimon = animons.get(0);
+		else
+			currentAnimon = null;
+	}
 	public int getNumberOfAnimons(){
 		return animons.size();
 	}
@@ -42,6 +49,12 @@ class Player {
 			animonNames.add(animon.getType().getName());
 		return animonNames;
 	}
+
+	public void updateAnimons(){
+		for(Animon animon: animons){
+			animon.update();	
+		}
+	} 
 
 	public String toString(){
 		String tmp ="";

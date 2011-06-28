@@ -12,6 +12,9 @@ class Animon {
 		attacks.add(type.getDefaultAttack());
 	} 
 
+	public void update(){
+		setMana(mana+10);	
+	}
 	public AnimonType getType(){
 		return type;
 	}

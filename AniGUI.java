@@ -60,10 +60,12 @@ class AniGUI extends JPanel {
 			default :
 					menuBar.draw();
 					latestEvent.setText(gameState.getLatestEvent());
-					latestEvent.setBounds(200,300,400,50);	
+					latestEvent.setBounds(200,300,500,50);	
 					if(gameState.infoChanged()){
-						animonInfo.draw();
-						defendingInfo.draw();
+						System.out.println(gameState.gameWon());
+							animonInfo.draw();
+						if(!gameState.gameWon())
+							defendingInfo.draw();
 						gameState.setInfoChanged(false);
 					}
 					break;
