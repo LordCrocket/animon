@@ -60,7 +60,7 @@ class Controller {
 				gameState.addPlayer(name);
 			}
 			
-			gameState.setCurrentMenu(new Menu(gameState.getAllAnimonTypeNames(),MenuType.animonChoice)); 
+			gameState.setCurrentMenu(new Menu(gameState.getAllAnimonTypeNames(),MenuType.animonChoice,7)); 
 			gameState.setInfoChanged(true);
 
 		}

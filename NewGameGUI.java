@@ -3,7 +3,7 @@ import java.awt.*;
 import java.util.ArrayList;
 class NewGameGUI extends GraphicalComponent {	
 	private GameState gameState;
-	private JComboBox numberField;
+	private JComboBox<String> numberField;
 	private int currentNumberOfPlayers = 0;
 	private ArrayList<JTextField> nameFields;
 	private boolean numberFieldShow = false;
@@ -15,7 +15,7 @@ class NewGameGUI extends GraphicalComponent {
 		setLayout(null);
 		gameState = GameState.getInstance();
 		String [] options = {"2","3","4","5","6"};
-		numberField = new JComboBox(options);
+		numberField = new JComboBox<String>(options);
 		this.mainWindow = mainWindow;
 		okButton = new JButton("OK");	
 		

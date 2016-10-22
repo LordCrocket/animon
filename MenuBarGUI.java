@@ -6,20 +6,21 @@ class MenuBarGUI extends GraphicalComponent {
 	private GameState gameState;
 	private ArrayList<JLabel> options; 
 	private JLabel selection;
-	private int width = 0;
+	private int width = 0, xSize,ySize;
 	private JLabel playerName;
 	
-	MenuBarGUI(int x,int y){
+	MenuBarGUI(int x,int y,int xSize,int ySize){
 		super(x,y);
+		this.xSize = xSize;
+		this.ySize = ySize;
 		gameState = GameState.getInstance();
 		setLayout(null);
 		selection = new JLabel("->");
 		selection.setBackground(Color.BLACK);
 		playerName = new JLabel("");
-		add(playerName);
 	}
 	public void draw(){
-		setBounds(x,y,400,150);
+		setBounds(x,y,xSize,ySize);
 		updateMenu();	
 	}
 
@@ -30,10 +31,11 @@ class MenuBarGUI extends GraphicalComponent {
 			menu = newMenu;
 			removeAll();
 			add(selection);
-			add(playerName);
+			if(menu.getType()==MenuType.animonChoice)
+				add(playerName);
 			options = new ArrayList<JLabel>();
 			ArrayList<String> optionNames = menu.getOptions();	
-			width = 400/menu.getColoumns();
+			width = xSize/menu.getColoumns();
 
 			int x=0,y=0;
 			for(String option: optionNames){
@@ -41,8 +43,10 @@ class MenuBarGUI extends GraphicalComponent {
 				options.add(menuLabel);
 				add(menuLabel);
 				menuLabel.setBounds(20+x,1+y,width,50);
-				x = (x+width)%400; 
-				if(x == 0){
+				x = (x+width)%xSize; 
+				if((x+width) > xSize)
+					x =0;
+				if(x < width){
 					y+=50;
 				}
 			}
@@ -53,8 +57,10 @@ class MenuBarGUI extends GraphicalComponent {
 			int x = choice%coloumns;	
 			int y = choice/coloumns;
 			selection.setBounds(width*x,50*y+15,20,20);
-			playerName.setText(gameState.getCurrentPlayer().getName());	
-			playerName.setBounds(width/2,0,100,25);
+			if(menu.getType()==MenuType.animonChoice){
+				playerName.setText(gameState.getCurrentPlayer().getName());	
+				playerName.setBounds(width/2,0,100,25);
+			}
 			
 		}
 

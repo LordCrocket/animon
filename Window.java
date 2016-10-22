@@ -3,9 +3,12 @@ import javax.swing.*;
 import java.awt.event.*;
 class Window extends JFrame {
 	private Controller game;
+	private int xSize, ySize;
 	Window(){
 		super("Animon");	
-		setSize(800,500);
+		xSize = 1000;
+		ySize = 600;
+		setSize(xSize,ySize);
 		AniGUI GUI = new AniGUI(this);
 		//setLayout(null);
 		add(GUI);	
@@ -15,7 +18,13 @@ class Window extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		addKeyListener(new MenuListener(game));
 	}
-		
+	
+	public int getXSize(){
+		return xSize;
+	}
+	public int getYSize(){
+		return ySize;
+	}	
 
 
 

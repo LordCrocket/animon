@@ -6,12 +6,12 @@ class AnimonType {
 	private HashSet<Attack> canLearn;
 	private String name;
 
-	AnimonType(String name, int hp, int mana, Attack defaultAttack, HashSet<Attack> canLearn){
+	AnimonType(String name, int hp, int mana, Attack defaultAttack){
 		this.name = name;
 		this.hp = hp;
 		this.mana = mana;
 		this.defaultAttack = defaultAttack;
-		this.canLearn = canLearn;
+		this.canLearn = new HashSet<Attack>();
 	}
 	public String getName(){
 		return name;
@@ -30,6 +30,10 @@ class AnimonType {
 
 	public Attack getDefaultAttack(){
 		return defaultAttack;
+	}
+
+	public void addLearnableAttack(Attack attack){
+		canLearn.add(attack);
 	}
 
 }

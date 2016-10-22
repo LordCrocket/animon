@@ -18,14 +18,15 @@ class AniGUI extends JPanel {
 	}
 
 	public void buildMainGUI(){
-			
-		animonInfo = new AnimonInfoGUI(0,350,true);
-		defendingInfo = new AnimonInfoGUI(450,50,false);
+		int xMax = mainWindow.getXSize();	
+		int yMax = mainWindow.getYSize();	
+		animonInfo = new AnimonInfoGUI(0,yMax-150,true);
+		defendingInfo = new AnimonInfoGUI(xMax-350,50,false);
 
-		menuBar = new MenuBarGUI(400,350);
+		menuBar = new MenuBarGUI(xMax-400,yMax-150,400,150);
 		mainMenu = new MainMenuGUI(200,200);
 		newGame = new NewGameGUI(200,100,mainWindow);
-		animonChoice = new MenuBarGUI(20,20);
+		animonChoice = new MenuBarGUI(20,20, xMax,yMax);
 		
 		latestEvent = new JLabel();
 		
@@ -60,7 +61,7 @@ class AniGUI extends JPanel {
 			default :
 					menuBar.draw();
 					latestEvent.setText(gameState.getLatestEvent());
-					latestEvent.setBounds(200,300,500,50);	
+					latestEvent.setBounds(mainWindow.getXSize()-700,mainWindow.getYSize()-200,500,50);	
 					if(gameState.infoChanged()){
 							animonInfo.draw();
 						if(!gameState.gameWon())
